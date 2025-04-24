@@ -12,7 +12,6 @@
             buildInputs = [ libclang llvm ];
             nativeBuildInputs = [ cmake ninja ];
             src = ./.;
-            cmakeFlags = [ "-DCMAKE_VERBOSE_MAKEFILE=ON" ];
           };
     in
     {
@@ -20,6 +19,15 @@
         {
           autoprintf = nixpkgs.legacyPackages.${system}.callPackage autoprintf {};
           default = self.packages.${system}.autoprintf;
+        });
+
+      devShells = forAllSystems (system:
+        {
+          autoprintf = nixpkgs.legacyPackages.${system}.mkShell {
+            packages = [ self.packages.${system}.autoprintf ];
+            hardeningDisable = [ "all" ];
+          };
+          default = self.devShells.${system}.autoprintf;
         });
     };
 }
