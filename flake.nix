@@ -6,12 +6,12 @@
       supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      autoprintf = { clangStdenv, libclang, llvm, cmake, ninja }:
+      autoprintf = { clangStdenv, libclang, llvm, cmake, ninja, lib }:
          clangStdenv.mkDerivation {
             name = "autoprintf";
             buildInputs = [ libclang llvm ];
             nativeBuildInputs = [ cmake ninja ];
-            src = ./.;
+            src = lib.cleanSource ./.;
           };
     in
     {
