@@ -22,9 +22,15 @@
         });
 
       devShells = forAllSystems (system:
+        let
+          pkg = self.packages.${system}.autoprintf;
+        in
         {
-          autoprintf = nixpkgs.legacyPackages.${system}.mkShell {
-            packages = [ self.packages.${system}.autoprintf ];
+          autoprintf = with nixpkgs.legacyPackages.${system}; mkShell.override {
+            stdenv = pkg.stdenv;
+          } {
+            inputsFrom = [ pkg ];
+            packages = [ lldb ];
             hardeningDisable = [ "all" ];
           };
           default = self.devShells.${system}.autoprintf;
