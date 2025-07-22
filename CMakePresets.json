@@ -1,0 +1,17 @@
+{
+    "version": 10,
+    "configurePresets": [
+	{
+	    "name": "default",
+	    "displayName": "Default debug",
+	    "generator": "Ninja",
+	    "binaryDir": "${sourceDir}/build"
+	}
+    ],
+    "buildPresets": [
+	{
+	    "name": "default",
+	    "configurePreset": "default"
+	}
+    ]
+}

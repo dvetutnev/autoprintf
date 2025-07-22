@@ -52,7 +52,10 @@
               }
               {
                 inputsFrom = [ pkg ];
-                packages = [ lldb ];
+                packages = [
+                  lldb
+                  clang-tools
+                ];
                 hardeningDisable = [ "all" ];
                 CMAKE_EXPORT_COMPILE_COMMANDS = "ON";
               };
